@@ -128,7 +128,7 @@ pipeline {
         }
       }
     }  
-   
+ /*  
     stage('K8S Deployment - DEV') {
             steps {
               parallel(
@@ -161,7 +161,7 @@ pipeline {
               )
             }
       }
-/* 
+ 
       stage('Integration Tests - DEV') {
         steps {
           script {
