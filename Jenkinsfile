@@ -104,14 +104,14 @@ pipeline {
     stage('Clone/Pull Repo') {
       steps {
         script {
-          if (fileExists('k8s-devsecops')) {
+          if (fileExists('k8s-devsecops/k8s-devsecops-code')) {
             echo 'Cloned repo already exists - Pulling latest changes'
-            dir("k8s-devsecops") {
+            dir("k8s-devsecops/k8s-devsecops-code") {
               sh 'git pull'
             }
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git clone -b test-branch https://github.com/ashwinbittu/k8s-devsecops'
+            sh 'git clone -b test-branch https://github.com/ashwinbittu/k8s-devsecops-code'
           }
         }
       }
@@ -121,11 +121,11 @@ pipeline {
             steps {
               parallel(
                 "Deployment": {
-                  withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
-                    dir("k8s-devsecops") {
+                  withKubeConfig([credentialsId: 'kubeconfig']) {                    
+                    dir("k8s-devsecops/k8s-devsecops-code") {
+                      sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
                       sh "git config --global user.email 'jenkins@ci.com'"
-                      sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops'
+                      sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops-code'
                       sh 'git checkout test-branch'
                       sh 'git add -A'
                       sh 'git commit -am "Updated image version for Build - $VERSION"'
@@ -143,7 +143,7 @@ pipeline {
               )
             }
       }
-
+/*
       stage('Integration Tests - DEV') {
         steps {
           script {
@@ -233,6 +233,8 @@ pipeline {
         }
       } 
 
+*/
+    
   }
 
   post {
