@@ -107,12 +107,12 @@ pipeline {
           echo "00000"
           sh 'pwd'
           sh 'ls -rtl'          
-          if (fileExists('k8s-devsecops/k8s-devsecops-code')) {
+          if (fileExists('k8s-devsecops-code')) {
             echo "11111"
             sh 'pwd'
             sh 'ls -rtl'
             echo 'Cloned repo already exists - Pulling latest changes'
-            dir("k8s-devsecops/k8s-devsecops-code") {
+            dir("k8s-devsecops-code") {
               echo "22222"
               sh 'pwd'
               sh 'ls -rtl'
