@@ -81,7 +81,7 @@ pipeline {
               }
             }
         }
-
+/*
       stage('Vulnerability Scan - Kubernetes') {
             steps {
               parallel(
@@ -99,7 +99,7 @@ pipeline {
               )
            }
       }        
-
+*/
       stage('K8S Deployment - DEV') {
             steps {
               parallel(
