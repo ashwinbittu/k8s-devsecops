@@ -20,7 +20,7 @@ spec:
         emptyDir: {}
       serviceAccountName: default
       containers:
-      - image: replace
+      - image: ashwinbittu/numeric-app:d7556828541997ad89b416d565697830b3f29216
         name: devsecops-container
         volumeMounts:
         - mountPath: /tmp
