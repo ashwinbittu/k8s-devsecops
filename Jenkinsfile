@@ -104,6 +104,9 @@ pipeline {
     stage('Clone/Pull Repo') {
       steps {
         script {
+          echo "00000"
+          sh 'pwd'
+          sh 'ls -rtl'          
           if (fileExists('k8s-devsecops/k8s-devsecops-code')) {
             echo "11111"
             sh 'pwd'
