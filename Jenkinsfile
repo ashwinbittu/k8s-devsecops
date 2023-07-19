@@ -125,14 +125,17 @@ pipeline {
         }
       }
     }  
- /*   
+   
     stage('K8S Deployment - DEV') {
             steps {
               parallel(
                 "Deployment": {
-                  withKubeConfig([credentialsId: 'kubeconfig']) {                    
+                  withKubeConfig([credentialsId: 'kubeconfig']) {       
+                    echo "44444"
+                    sh 'pwd'
+                    sh 'ls -rtl'                    
                     dir("k8s-devsecops/k8s-devsecops-code") {
-                      echo "44444"
+                      echo "55555"
                       sh 'pwd'
                       sh 'ls -rtl'
                       sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
@@ -155,7 +158,7 @@ pipeline {
               )
             }
       }
-
+/* 
       stage('Integration Tests - DEV') {
         steps {
           script {
