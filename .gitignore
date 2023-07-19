@@ -26,3 +26,6 @@ bin
 .classpath
 .project
 target
+
+#Kubeconfig
+.kube*config
