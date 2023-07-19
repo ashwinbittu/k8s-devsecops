@@ -65,7 +65,7 @@ pipeline {
       }      
       stage('Docker Build & Push') {
             steps {
-              withDockerRegistry([credentialsId: "ashwinbittu-dockerhub", url: ""]){
+              withDockerRegistry([credentialsId: "dockerhub-ashwinbittu", url: ""]){
                 sh 'printenv'
                 sh 'sudo docker build -t ashwinbittu/numeric-app:""$GIT_COMMIT"" .'
                 sh 'docker push ashwinbittu/numeric-app:""$GIT_COMMIT""'
@@ -96,7 +96,8 @@ pipeline {
               parallel(
                 "Deployment": {
                   withKubeConfig([credentialsId: 'kubeconfig']) {
-                    sh "bash k8s-deployment.sh"
+                    sh "sed -i 's#replace#${imageName}#g' k8s_PROD-deployment_service.yaml"
+                    //sh "bash k8s-deployment.sh"
                   }
                 },
                 "Rollout Status": {
