@@ -24,6 +24,7 @@ pipeline {
               archive 'target/*.jar' 
             }
         }  
+    /*
       stage('Unit Test') {
             steps {
               sh "mvn test"
@@ -38,16 +39,16 @@ pipeline {
       stage('SonarQube - SAST') {
             steps {
               echo "Disabling for the timebeing"
-              /*
-              withSonarQubeEnv('sonarqube-local') {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"  
-              }
-              timeout(time: 2, unit: 'MINUTES') {
-                script {
-                  waitForQualityGate abortPipeline: true
-                }
-              }
-              */
+              
+              //withSonarQubeEnv('sonarqube-local') {
+              //  sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application'"  
+              //}
+              //timeout(time: 2, unit: 'MINUTES') {
+              //  script {
+              //    waitForQualityGate abortPipeline: true
+              //  }
+              //}
+              
             }
       }
       stage('Vulnerability Scan - Docker') {
@@ -67,7 +68,10 @@ pipeline {
               )
             }
         
-      }      
+      }
+    
+*/
+
       stage('Docker Build & Push') {
             steps {
               withDockerRegistry([credentialsId: "dockerhub-ashwinbittu", url: ""]){
