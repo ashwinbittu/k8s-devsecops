@@ -105,11 +105,17 @@ pipeline {
       steps {
         script {
           if (fileExists('k8s-devsecops/k8s-devsecops-code')) {
+            sh '"pwd--11-->>>"pwd'
+            sh '"ls-rtl--11-->>>"ls-rtl'
             echo 'Cloned repo already exists - Pulling latest changes'
             dir("k8s-devsecops/k8s-devsecops-code") {
+              sh '"pwd--22-->>>"pwd'
+              sh '"ls-rtl--22-->>>"ls-rtl'
               sh 'git pull'
             }
           } else {
+            sh '"pwd--33-->>>"pwd'
+            sh '"ls-rtl--33-->>>"ls-rtl'
             echo 'Repo does not exists - Cloning the repo'
             sh 'git clone -b test-branch https://github.com/ashwinbittu/k8s-devsecops-code'
           }
@@ -123,6 +129,8 @@ pipeline {
                 "Deployment": {
                   withKubeConfig([credentialsId: 'kubeconfig']) {                    
                     dir("k8s-devsecops/k8s-devsecops-code") {
+                      sh '"pwd--44-->>>"pwd'
+                      sh '"ls-rtl--44-->>>"ls-rtl'
                       sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
                       sh "git config --global user.email 'jenkins@ci.com'"
                       sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops-code'
