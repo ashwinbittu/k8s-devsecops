@@ -137,7 +137,7 @@ pipeline {
                     echo "44444"
                     sh 'pwd'
                     sh 'ls -rtl'                    
-                    dir("k8s-devsecops/k8s-devsecops-code") {
+                    dir("k8s-devsecops-code") {
                       echo "55555"
                       sh 'pwd'
                       sh 'ls -rtl'
