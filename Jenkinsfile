@@ -100,7 +100,24 @@ pipeline {
            }
       }        
 */
-      stage('K8S Deployment - DEV') {
+
+    stage('Clone/Pull Repo') {
+      steps {
+        script {
+          if (fileExists('k8s-devsecops')) {
+            echo 'Cloned repo already exists - Pulling latest changes'
+            dir("k8s-devsecops") {
+              sh 'git pull'
+            }
+          } else {
+            echo 'Repo does not exists - Cloning the repo'
+            sh 'git clone -b test-branch https://github.com/ashwinbittu/k8s-devsecops'
+          }
+        }
+      }
+        
+    
+    stage('K8S Deployment - DEV') {
             steps {
               parallel(
                 "Deployment": {
