@@ -10,6 +10,10 @@ pipeline {
     imageName = "ashwinbittu/numeric-app:${GIT_COMMIT}"
     applicationURL="http://devsecops-k8ss.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
+    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
+    IMAGE_REPO = "ashwinbittu"
+    GITHUB_TOKEN = credentials('GITHUB_TOKEN')
+    //GITHUB_TOK = "${env.GH_TOKEN}"    
   }
 
   stages {
@@ -98,6 +102,14 @@ pipeline {
                 "Deployment": {
                   withKubeConfig([credentialsId: 'kubeconfig']) {
                     sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
+                    dir("k8s-devsecops") {
+                      sh "git config --global user.email 'jenkins@ci.com'"
+                      sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops'
+                      sh 'git checkout test-branch'
+                      sh 'git add -A'
+                      sh 'git commit -am "Updated image version for Build - $VERSION"'
+                      sh 'git push origin test-branch'
+                    }                    
                     //sh "bash k8s-deployment.sh"
                   }
                 },
