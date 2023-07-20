@@ -128,7 +128,7 @@ pipeline {
         }
       }
     }  
- /*  
+   
     stage('K8S Deployment - DEV') {
             steps {
               parallel(
@@ -142,12 +142,12 @@ pipeline {
                       sh 'pwd'
                       sh 'ls -rtl'
                       sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
-                      sh "git config --global user.email 'jenkins@ci.com'"
+                      /*sh "git config --global user.email 'jenkins@ci.com'"
                       sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops-code'
                       sh 'git checkout test-branch'
                       sh 'git add -A'
                       sh 'git commit -am "Updated image version for Build - $VERSION"'
-                      sh 'git push origin test-branch'
+                      sh 'git push origin test-branch'*/
                     }                    
                     //sh "bash k8s-deployment.sh"
                   }
@@ -161,7 +161,7 @@ pipeline {
               )
             }
       }
- 
+ /*
       stage('Integration Tests - DEV') {
         steps {
           script {
