@@ -141,7 +141,7 @@ pipeline {
                       echo "55555"
                       sh 'pwd'
                       sh 'ls -rtl'
-                      imageName = "ashwinbittu/numeric-app:${VERSION}"
+                      sh 'imageName = "ashwinbittu/numeric-app:${VERSION}"'
                       echo "imageName-->>"${imageName}
                       sh "sed -i 's#ashwinbittu.*#${imageName}#g' k8s_deployment_service.yaml"
                       sh "git config --global user.email 'jenkins@ci.com'"
