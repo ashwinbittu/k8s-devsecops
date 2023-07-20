@@ -164,7 +164,7 @@ pipeline {
       }
 */
 
-    stage('Raise PR') {
+    stage('Raise PR & Merge With Main') {
       steps {
          dir("k8s-devsecops-code") {
             //sh 'git config --global --add safe.directory "/var/lib/jenkins/workspace/php-k8s/k8s-acrogcd"'
@@ -178,7 +178,7 @@ pipeline {
       }
     }
     
-    /*
+    
       stage('OWASP ZAP - DAST') {
         steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
@@ -186,7 +186,7 @@ pipeline {
           }
         }
       }
-
+/*
       stage('Prompte to PROD?') {
         steps {
           timeout(time: 2, unit: 'DAYS') {
