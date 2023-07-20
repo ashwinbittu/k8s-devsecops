@@ -142,6 +142,7 @@ pipeline {
                       sh 'pwd'
                       sh 'ls -rtl'
                       imageName = "ashwinbittu/numeric-app:${VERSION}"
+                      echo "imageName-->>"${imageName}
                       sh "sed -i 's#ashwinbittu.*#${imageName}#g' k8s_deployment_service.yaml"
                       sh "git config --global user.email 'jenkins@ci.com'"
                       sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops-code'
