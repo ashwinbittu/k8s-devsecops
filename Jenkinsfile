@@ -161,7 +161,21 @@ pipeline {
           }
         }
       }
+*/
 
+    stage('Raise PR') {
+      steps {
+         dir("k8s-devsecops-code") {
+            //sh 'git config --global --add safe.directory "/var/lib/jenkins/workspace/php-k8s/k8s-acrogcd"'
+            sh 'gh pr create --assignee "@me" --base "main" --head test-branch --title "Updated Image" --body "Updated deployment specification with a new image version."'    
+            //sh 'gh pr create --head feature-req --title "Updated PHP k8s App" --body "Updated deployment specification with a new image version."'
+            //sh 'gh pr create --head main  --title "Updated PHP k8s App" --body "Updated deployment specification with a new image version." '
+            sh 'echo "Success"'        
+         }
+      }
+    }
+    
+    /*
       stage('OWASP ZAP - DAST') {
         steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
