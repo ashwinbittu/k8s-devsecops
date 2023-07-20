@@ -26,7 +26,7 @@ pipeline {
               archive 'target/*.jar' 
             }
         }  
-    /*
+    
       stage('Unit Test') {
             steps {
               sh "mvn test"
@@ -72,7 +72,7 @@ pipeline {
         
       }
     
-*/
+
 
       stage('Docker Build & Push') {
             steps {
@@ -83,8 +83,8 @@ pipeline {
               }
             }
         }
-/*
-      stage('Vulnerability Scan - Kubernetes') {
+
+     stage('Vulnerability Scan - Kubernetes') {
             steps {
               parallel(
                 "OPA Scan": {
@@ -95,13 +95,13 @@ pipeline {
                   sh "bash kubesec-scan.sh"
                 },
                 "Trivy Scan": {
-                  echo "Disabling for the timebeing"
-                  //sh "bash trivy-k8s-scan.sh"
+                  //echo "Disabling for the timebeing"
+                  sh "bash trivy-k8s-scan.sh"
                 }
               )
            }
       }        
-*/
+
 
     stage('Clone/Pull Repo') {
       steps {
