@@ -138,6 +138,7 @@ pipeline {
                 "Rollout Status": {
                   withKubeConfig([credentialsId: 'kubeconfig']) {
                     echo "Disabling for the timebeing"
+                    sh 'kubectl get pods -n k8s-devsecops'
                     //sh "bash k8s-deployment-rollout-status.sh"
                   }
                 }
