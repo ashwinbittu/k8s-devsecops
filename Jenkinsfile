@@ -147,7 +147,7 @@ pipeline {
               )
             }
       }
- /*
+ 
       stage('Integration Tests - DEV') {
         steps {
           script {
@@ -157,14 +157,15 @@ pipeline {
               }
             } catch (e) {
               withKubeConfig([credentialsId: 'kubeconfig']) {
-                sh "kubectl -n default rollout undo deploy ${deploymentName}"
+                //sh "kubectl -n default rollout undo deploy ${deploymentName}"
+                echo "Disabling for the timebeing"
               }
               throw e
             }
           }
         }
       }
-*/
+
 
     stage('Raise PR & Merge With Main') {
       steps {
@@ -179,24 +180,24 @@ pipeline {
          }
       }
     }
-    
-    
-      stage('OWASP ZAP - DAST') {
+        
+    stage('OWASP ZAP - DAST') {
         steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
             sh 'bash zap.sh'
           }
         }
-      }
-/*
-      stage('Prompte to PROD?') {
+    }
+
+    stage('Prompte to PROD?') {
         steps {
           timeout(time: 2, unit: 'DAYS') {
             input 'Do you want to Approve the Deployment to Production Environment/Namespace?'
           }
         }
       }
-
+    
+/*
       stage('K8S CIS Benchmark') {
         steps {
           script {
