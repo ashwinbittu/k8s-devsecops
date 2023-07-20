@@ -141,7 +141,7 @@ pipeline {
                       echo "55555"
                       sh 'pwd'
                       sh 'ls -rtl'
-                      sh "sed -i 's#replace#${imageName}#g' k8s_deployment_service.yaml"
+                      sh "sed -i 's#ashwinbittu.*#${imageName}#g' k8s_deployment_service.yaml"
                       /*sh "git config --global user.email 'jenkins@ci.com'"
                       sh 'git remote set-url origin https://$GITHUB_TOKEN@github.com/ashwinbittu/k8s-devsecops-code'
                       sh 'git checkout test-branch'
