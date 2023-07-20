@@ -103,25 +103,13 @@ pipeline {
 
     stage('Clone/Pull Repo') {
       steps {
-        script {
-          echo "00000"
-          sh 'pwd'
-          sh 'ls -rtl'          
+        script {    
           if (fileExists('k8s-devsecops-code')) {
-            echo "11111"
-            sh 'pwd'
-            sh 'ls -rtl'
             echo 'Cloned repo already exists - Pulling latest changes'
             dir("k8s-devsecops-code") {
-              echo "22222"
-              sh 'pwd'
-              sh 'ls -rtl'
               sh 'git pull'
             }
           } else {
-            echo "33333"
-            sh 'pwd'
-            sh 'ls -rtl'
             echo 'Repo does not exists - Cloning the repo'
             sh 'git clone -b test-branch https://github.com/ashwinbittu/k8s-devsecops-code'
           }
@@ -133,14 +121,8 @@ pipeline {
             steps {
               parallel(
                 "Deployment": {
-                  withKubeConfig([credentialsId: 'kubeconfig']) {       
-                    echo "44444"
-                    sh 'pwd'
-                    sh 'ls -rtl'                    
+                  withKubeConfig([credentialsId: 'kubeconfig']) {                          
                     dir("k8s-devsecops-code") {
-                      echo "55555"
-                      sh 'pwd'
-                      sh 'ls -rtl'
                       //sh 'imageName = "ashwinbittu/numeric-app:${VERSION}"'
                       sh "sed -i 's#ashwinbittu.*#ashwinbittu/numeric-app:${VERSION}#g' k8s_deployment_service.yaml"
                       sh "git config --global user.email 'jenkins@ci.com'"
